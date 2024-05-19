@@ -1,23 +1,40 @@
-import logo from './logo.svg';
 import './App.css';
+import  { useState } from 'react'
+import axios from 'axios'
+
+
+
 
 function App() {
+
+
+  const [content,setContent] = useState();
+  const [auth,setAuth] =useState();
+  const [authSlug,setAuthSlug] = useState();
+
+ function handleClick(){
+
+  axios.get(`https://api.quotable.io/random`).then((res)=>{
+    console.log(res)
+    setContent(res.data.content)
+    setAuth(res.data.author)
+    setAuthSlug(res.data.authorSlug
+    )
+    
+  })
+
+  }
+
+ 
   return (
+    
+
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+<h1>{content}</h1>
+<h1>{auth}</h1>
+<h1>{authSlug}</h1>
+<button onClick={handleClick}>Generate</button>
+      
     </div>
   );
 }
